@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanz Kitchen - Pemesanan Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #FF704D;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 10px solid #FF704D;
+            background-image: url('bg.jpeg')
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+
+        section.menu {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: white;
+        }
+
+        section.menu h2 {
+            font-size: 2em;
+            color: #FF704D;
+            margin-bottom: 20px;
+        }
+
+        .menu-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px;
+        }
+
+        .menu-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .menu-container::-webkit-scrollbar-thumb {
+            background-color: #FF704D;
+            border-radius: 10px;
+        }
+
+        .menu-item {
+            flex: 0 0 auto;
+            width: 250px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-item h3 {
+            color: #FF704D;
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .menu-item button {
+            background-color: #FF704D;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .menu-item button:hover {
+            background-color: #FF5733;
+        }
+
+        section.description {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        section.description h2 {
+            font-size: 2em;
+            color: #FF704D;
+            margin-bottom: 20px;
+        }
+
+        section.description p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        section.order {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .form-group {
+            margin: 10px auto;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button[type="button"] {
+            background-color: #FF704D;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="button"]:hover {
+            background-color: #FF5733;
+        }
+
+        #showPriceButton {
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #FF704D;
+            color: white;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Nanz Kitchen</h1>
+    <p>Pemesanan Makanan Favorit Langsung dari Dapur</p>
+</header>
+
+<section class="menu">
+    <h2>Pilih Menu Kami</h2>
+    <div class="menu-container">
+        <div class="menu-item">
+            <img src="1.jpeg" alt="Pizza Pepperoni">
+            <h3>Pizza Pepperoni</h3>
+            <p>Pizza lezat dengan topping pepperoni, keju mozarella, dan saus tomat spesial.</p>
+            <button onclick="scrollToOrder()">Pesan</button>
+        </div>
+        <div class="menu-item">
+            <img src="2.jpeg" alt="Burger Beef">
+            <h3>Burger Beef</h3>
+            <p>Burger daging sapi panggang dengan keju meleleh, selada segar, dan saus BBQ istimewa.</p>
+            <button onclick="scrollToOrder()">Pesan</button>
+        </div>
+        <div class="menu-item">
+            <img src="3.jpeg" alt="Spaghetti Bolognese">
+            <h3>Spaghetti Bolognese</h3>
+            <p>Spaghetti dengan saus daging sapi cincang yang kaya rasa.</p>
+            <button onclick="scrollToOrder()">Pesan</button>
+        </div>
+        <div class="menu-item">
+            <img src="4.jpeg" alt="Nasi Goreng Spesial">
+            <h3>Nasi Goreng Spesial</h3>
+            <p>Nasi goreng dengan telur, ayam, dan bumbu khas Indonesia.</p>
+            <button onclick="scrollToOrder()">Pesan</button>
+        </div>
+        <div class="menu-item">
+            <img src="5.jpeg" alt="Salad Buah">
+            <h3>Salad Buah</h3>
+            <p>Campuran buah segar dengan saus yogurt.</p>
+            <button onclick="scrollToOrder()">Pesan</button>
+        </div>
+    </div>
+</section>
+
+<section class="description">
+    <h2>Tentang Nanz Kitchen</h2>
+    <p>
+        Selamat datang di <strong>Nanz Kitchen</strong>, rumah bagi berbagai makanan lezat yang dibuat dengan bahan berkualitas dan cinta. Kami menyajikan berbagai pilihan menu yang menggugah selera, mulai dari masakan lokal hingga internasional.  
+    </p>
+    <p>
+        Nikmati pengalaman kuliner yang nyaman dengan layanan pemesanan online kami. Pilih favorit Anda, tambahkan catatan khusus, dan biarkan kami yang mengurus sisanya. Dengan komitmen terhadap rasa dan kualitas, Nanz Kitchen siap menjadi bagian dari momen istimewa Anda.
+    </p>
+</section>
+
+<section class="order" id="orderSection">
+    <h2>Pesan Sekarang</h2>
+    <form id="orderForm">
+        <div class="form-group">
+            <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+        </div>
+        <div class="form-group">
+            <select id="menu" name="menu" required>
+                <option value="" disabled selected>Pilih Menu</option>
+                <option value="Pizza Pepperoni">Pizza Pepperoni</option>
+                <option value="Burger Beef">Burger Beef</option>
+                <option value="Spaghetti Bolognese">Spaghetti Bolognese</option>
+                <option value="Nasi Goreng Spesial">Nasi Goreng Spesial</option>
+                <option value="Salad Buah">Salad Buah</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="number" id="quantity" name="quantity" placeholder="Jumlah Pesanan" min="1" required>
+        </div>
+        <div class="form-group">
+            <textarea id="notes" name="notes" placeholder="Silakan masukkan alamat Anda atau catatan tambahan"></textarea>
+        </div>
+        <button type="button" onclick="sendToWhatsApp()">Pesan Sekarang</button>
+    </form>
+
+    <button type="button" id="showPriceButton" onclick="showPrice()">Tampilkan Harga</button>
+    <p id="priceDisplay" style="margin-top: 20px; font-weight: bold; color: #FF704D;"></p>
+</section>
+
+<footer>
+    <p>Nanz Kitchen © 2024. Menyediakan makanan berkualitas untuk kepuasan Anda.</p>
+    <p>Alamat: Jl. Makanan No. 123, Kota Kuliner, Indonesia</p>
+    </footer>
+
+<script>
+    function scrollToOrder() {
+        document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function sendToWhatsApp() {
+        const name = document.getElementById('name').value;
+        const menu = document.getElementById('menu').value;
+        const quantity = document.getElementById('quantity').value;
+        const notes = document.getElementById('notes').value;
+
+        if (name && menu && quantity) {
+            const orderMessage = `Halo, saya ingin memesan: \nNama: ${name} \nMenu: ${menu} \nJumlah: ${quantity} \nCatatan: ${notes}`;
+            const phoneNumber = '628123456789'; // Ganti dengan nomor WhatsApp Anda
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(orderMessage)}`;
+            window.open(url, '_blank');
+        } else {
+            alert('Harap isi semua field yang diperlukan!');
+        }
+    }
+
+    function showPrice() {
+        const menu = document.getElementById('menu').value;
+        const quantity = document.getElementById('quantity').value;
+        const priceDisplay = document.getElementById('priceDisplay');
+
+        if (menu && quantity) {
+            let price = 0;
+            switch (menu) {
+                case 'Pizza Pepperoni':
+                    price = 75000;
+                    break;
+                case 'Burger Beef':
+                    price = 50000;
+                    break;
+                case 'Spaghetti Bolognese':
+                    price = 60000;
+                    break;
+                case 'Nasi Goreng Spesial':
+                    price = 40000;
+                    break;
+                case 'Salad Buah':
+                    price = 30000;
+                    break;
+                default:
+                    price = 0;
+            }
+
+            const totalPrice = price * quantity;
+            priceDisplay.textContent = `Total Harga: Rp ${totalPrice.toLocaleString()}`;
+        } else {
+            priceDisplay.textContent = 'Harap pilih menu dan jumlah pesanan.';
+        }
+    }
+</script>
+
+</body>
+</html>
