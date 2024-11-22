@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restoran Lezat - Pemesanan Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #FF704D;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 10px solid #FF704D;
+            background-image: url('bg.jpeg')
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+
+        section.menu {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: white;
+        }
+
+        section.menu h2 {
+            font-size: 2em;
+            color: #FF704D;
+            margin-bottom: 20px;
+        }
+
+        .menu-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px;
+        }
+
+        .menu-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .menu-container::-webkit-scrollbar-thumb {
+            background-color: #FF704D;
+            border-radius: 10px;
+        }
+
+        .menu-item {
+            flex: 0 0 auto;
+            width: 250px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-item h3 {
+            color: #FF704D;
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        section.order {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .form-group {
+            margin: 10px auto;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button[type="button"] {
+            background-color: #FF704D;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="button"]:hover {
+            background-color: #FF5733;
+        }
+
+        /* Tambahkan margin untuk tombol Tampilkan Harga */
+        #showPriceButton {
+            margin-top: 15px; /* Jarak vertikal */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Restoran Lezat</h1>
+    <p>Pemesanan Makanan Favorit Langsung dari Dapur</p>
+</header>
+
+<section class="menu">
+    <h2>Pilih Menu Kami</h2>
+    <div class="menu-container">
+        <div class="menu-item">
+            <img src="1.jpeg" alt="Pizza Pepperoni">
+            <h3>Pizza Pepperoni</h3>
+            <p>Pizza lezat dengan topping pepperoni, keju mozarella, dan saus tomat spesial.</p>
+        </div>
+        <div class="menu-item">
+            <img src="2.jpeg" alt="Burger Beef">
+            <h3>Burger Beef</h3>
+            <p>Burger daging sapi panggang dengan keju meleleh, selada segar, dan saus BBQ istimewa.</p>
+        </div>
+        <div class="menu-item">
+            <img src="3.jpeg" alt="Spaghetti Bolognese">
+            <h3>Spaghetti Bolognese</h3>
+            <p>Spaghetti dengan saus daging sapi cincang yang kaya rasa.</p>
+        </div>
+        <div class="menu-item">
+            <img src="4.jpeg" alt="Nasi Goreng Spesial">
+            <h3>Nasi Goreng Spesial</h3>
+            <p>Nasi goreng dengan telur, ayam, dan bumbu khas Indonesia.</p>
+        </div>
+        <div class="menu-item">
+            <img src="5.jpeg" alt="Salad Buah">
+            <h3>Salad Buah</h3>
+            <p>Campuran buah segar dengan saus yogurt.</p>
+        </div>
+    </div>
+</section>
+
+<section class="order">
+    <h2>Pesan Sekarang</h2>
+    <form id="orderForm">
+        <div class="form-group">
+            <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+        </div>
+        <div class="form-group">
+            <select id="menu" name="menu" required>
+                <option value="" disabled selected>Pilih Menu</option>
+                <option value="Pizza Pepperoni">Pizza Pepperoni</option>
+                <option value="Burger Beef">Burger Beef</option>
+                <option value="Spaghetti Bolognese">Spaghetti Bolognese</option>
+                <option value="Nasi Goreng Spesial">Nasi Goreng Spesial</option>
+                <option value="Salad Buah">Salad Buah</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="number" id="quantity" name="quantity" placeholder="Jumlah Pesanan" min="1" required>
+        </div>
+        <div class="form-group">
+            <textarea id="notes" name="notes" placeholder="Silakan masukkan alamat Anda atau catatan tambahan"></textarea>
+        </div>
+        <button type="button" onclick="sendToWhatsApp()">Pesan Sekarang</button>
+    </form>
+
+    <!-- Tombol untuk Menampilkan Harga -->
+    <button type="button" id="showPriceButton" onclick="showPrice()">Tampilkan Harga</button>
+    <p id="priceDisplay" style="margin-top: 20px; font-weight: bold; color: #FF704D;"></p>
+</section>
+
+<script>
+    // Fungsi untuk Mengirim Pesanan ke WhatsApp
+    function sendToWhatsApp() {
+        const name = document.getElementById('name').value.trim();
+        const menu = document.getElementById('menu').value.trim();
+        const quantity = document.getElementById('quantity').value.trim();
+        const notes = document.getElementById('notes').value.trim();
+
+        if (!name || !menu || !quantity) {
+            alert("Harap lengkapi data pemesanan!");
+            return;
+        }
+
+        const phoneNumber = "6287884163006"; // Ganti dengan nomor WhatsApp Anda
+        const message = `Halo, saya ingin memesan:\n` +
+                        `Nama: ${name}\n` +
+                        `Menu: ${menu}\n` +
+                        `Jumlah: ${quantity}\n` +
+                        `Catatan: ${notes || 'Tidak ada'}`;
+
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+
+    // Fungsi untuk Menampilkan Harga
+    function showPrice() {
+        const menu = document.getElementById('menu').value.trim();
+        const quantity = document.getElementById('quantity').value.trim();
+        const priceDisplay = document.getElementById('priceDisplay');
+
+        // Validasi Input
+        if (!menu) {
+            priceDisplay.textContent = "Silakan pilih menu terlebih dahulu.";
+            return;
+        }
+
+        if (!quantity || quantity <= 0) {
+            priceDisplay.textContent = "Masukkan jumlah pesanan yang valid.";
+            return;
+        }
+
+        // Daftar Harga Menu
+        const prices = {
+            "Pizza Pepperoni": 80000,
+            "Burger Beef": 60000,
+            "Spaghetti Bolognese": 50000,
+            "Nasi Goreng Spesial": 40000,
+            "Salad Buah": 30000
+        };
+
+        // Hitung Total Harga
+        const totalPrice = prices[menu] * parseInt(quantity);
+
+        // Tampilkan Harga Total
+        priceDisplay.textContent = `Total Harga: Rp ${totalPrice.toLocaleString("id-ID")}`;
+    }
+</script>
+
+</body>
+</html>
