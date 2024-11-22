@@ -25,7 +25,7 @@
             text-align: center;
             padding: 40px 20px;
             border-bottom: 10px solid #FF704D;
-            background-image: url('bg.jpeg')
+            background-image: url('bg.jpeg');
         }
 
         header h1 {
@@ -57,40 +57,20 @@
             padding: 20px;
         }
 
-        .menu-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .menu-container::-webkit-scrollbar-thumb {
-            background-color: #FF704D;
-            border-radius: 10px;
-        }
-
         .menu-item {
             flex: 0 0 auto;
             width: 250px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
             text-align: center;
             transition: transform 0.3s ease;
-        }
-
-        .menu-item:hover {
-            transform: scale(1.05);
         }
 
         .menu-item img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-        }
-
-        .menu-item h3 {
-            color: #FF704D;
-            font-size: 1.5em;
-            margin: 10px 0;
         }
 
         section.order {
@@ -105,15 +85,22 @@
             max-width: 400px;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-bottom: 15px;
-            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group .payment {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
         }
 
         button[type="button"] {
@@ -129,9 +116,10 @@
             background-color: #FF5733;
         }
 
-        /* Tambahkan margin untuk tombol Tampilkan Harga */
-        #showPriceButton {
-            margin-top: 15px; /* Jarak vertikal */
+        #priceDisplay {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #FF704D;
         }
     </style>
 </head>
@@ -160,16 +148,6 @@
             <h3>Spaghetti Bolognese</h3>
             <p>Spaghetti dengan saus daging sapi cincang yang kaya rasa.</p>
         </div>
-        <div class="menu-item">
-            <img src="4.jpeg" alt="Nasi Goreng Spesial">
-            <h3>Nasi Goreng Spesial</h3>
-            <p>Nasi goreng dengan telur, ayam, dan bumbu khas Indonesia.</p>
-        </div>
-        <div class="menu-item">
-            <img src="5.jpeg" alt="Salad Buah">
-            <h3>Salad Buah</h3>
-            <p>Campuran buah segar dengan saus yogurt.</p>
-        </div>
     </div>
 </section>
 
@@ -177,87 +155,73 @@
     <h2>Pesan Sekarang</h2>
     <form id="orderForm">
         <div class="form-group">
-            <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+            <input type="text" id="name" placeholder="Nama Anda" required>
         </div>
         <div class="form-group">
-            <select id="menu" name="menu" required>
+            <select id="menu" required>
                 <option value="" disabled selected>Pilih Menu</option>
                 <option value="Pizza Pepperoni">Pizza Pepperoni</option>
                 <option value="Burger Beef">Burger Beef</option>
                 <option value="Spaghetti Bolognese">Spaghetti Bolognese</option>
-                <option value="Nasi Goreng Spesial">Nasi Goreng Spesial</option>
-                <option value="Salad Buah">Salad Buah</option>
             </select>
         </div>
         <div class="form-group">
-            <input type="number" id="quantity" name="quantity" placeholder="Jumlah Pesanan" min="1" required>
+            <input type="number" id="quantity" placeholder="Jumlah Pesanan" min="1" required>
+        </div>
+        <div class="form-group payment">
+            <label for="payment">Metode Pembayaran</label>
+            <select id="payment" required>
+                <option value="" disabled selected>Pilih Metode</option>
+                <option value="DANA">DANA</option>
+                <option value="COD">COD (Bayar di Tempat)</option>
+            </select>
         </div>
         <div class="form-group">
-            <textarea id="notes" name="notes" placeholder="Silakan masukkan alamat Anda atau catatan tambahan"></textarea>
+            <textarea id="notes" placeholder="Alamat atau catatan tambahan"></textarea>
         </div>
         <button type="button" onclick="sendToWhatsApp()">Pesan Sekarang</button>
+        <button type="button" onclick="showPrice()">Tampilkan Harga</button>
+        <p id="priceDisplay"></p>
     </form>
-
-    <!-- Tombol untuk Menampilkan Harga -->
-    <button type="button" id="showPriceButton" onclick="showPrice()">Tampilkan Harga</button>
-    <p id="priceDisplay" style="margin-top: 20px; font-weight: bold; color: #FF704D;"></p>
 </section>
 
 <script>
-    // Fungsi untuk Mengirim Pesanan ke WhatsApp
     function sendToWhatsApp() {
-        const name = document.getElementById('name').value.trim();
-        const menu = document.getElementById('menu').value.trim();
-        const quantity = document.getElementById('quantity').value.trim();
-        const notes = document.getElementById('notes').value.trim();
+        const name = document.getElementById("name").value;
+        const menu = document.getElementById("menu").value;
+        const quantity = document.getElementById("quantity").value;
+        const payment = document.getElementById("payment").value;
+        const notes = document.getElementById("notes").value;
 
-        if (!name || !menu || !quantity) {
-            alert("Harap lengkapi data pemesanan!");
+        if (!name || !menu || !quantity || !payment) {
+            alert("Harap lengkapi semua data!");
             return;
         }
 
-        const phoneNumber = "6287884163006"; // Ganti dengan nomor WhatsApp Anda
-        const message = `Halo, saya ingin memesan:\n` +
-                        `Nama: ${name}\n` +
-                        `Menu: ${menu}\n` +
-                        `Jumlah: ${quantity}\n` +
-                        `Catatan: ${notes || 'Tidak ada'}`;
+        const phoneNumber = "6287884163006"; // Ganti nomor Anda
+        const message = `Halo, saya ingin memesan:\nNama: ${name}\nMenu: ${menu}\nJumlah: ${quantity}\nMetode Pembayaran: ${payment}\nCatatan: ${notes || "Tidak ada"}`;
 
         const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+        window.open(url, "_blank");
     }
 
-    // Fungsi untuk Menampilkan Harga
     function showPrice() {
-        const menu = document.getElementById('menu').value.trim();
-        const quantity = document.getElementById('quantity').value.trim();
-        const priceDisplay = document.getElementById('priceDisplay');
+        const menu = document.getElementById("menu").value;
+        const quantity = document.getElementById("quantity").value;
 
-        // Validasi Input
-        if (!menu) {
-            priceDisplay.textContent = "Silakan pilih menu terlebih dahulu.";
+        if (!menu || !quantity || quantity <= 0) {
+            document.getElementById("priceDisplay").textContent = "Harap masukkan menu dan jumlah yang valid.";
             return;
         }
 
-        if (!quantity || quantity <= 0) {
-            priceDisplay.textContent = "Masukkan jumlah pesanan yang valid.";
-            return;
-        }
-
-        // Daftar Harga Menu
         const prices = {
             "Pizza Pepperoni": 80000,
             "Burger Beef": 60000,
-            "Spaghetti Bolognese": 50000,
-            "Nasi Goreng Spesial": 40000,
-            "Salad Buah": 30000
+            "Spaghetti Bolognese": 50000
         };
 
-        // Hitung Total Harga
-        const totalPrice = prices[menu] * parseInt(quantity);
-
-        // Tampilkan Harga Total
-        priceDisplay.textContent = `Total Harga: Rp ${totalPrice.toLocaleString("id-ID")}`;
+        const total = prices[menu] * quantity;
+        document.getElementById("priceDisplay").textContent = `Total Harga: Rp ${total.toLocaleString("id-ID")}`;
     }
 </script>
 
